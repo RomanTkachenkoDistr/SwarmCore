@@ -23,6 +23,8 @@
 #include "util/optional.h"
 #include <locale>
 #include "transactions/OperationFrame.h"
+#include "gtest\gtest.h"
+#include "gmock\gmock.h"
 INITIALIZE_EASYLOGGINGPP
 
 namespace stellar
@@ -374,7 +376,7 @@ startApp(string cfgFile, Config& cfg)
 }
 
 int
-main(int argc, char* const* argv)
+main(int argc, char** argv)
 {
     using namespace stellar;
     
@@ -470,10 +472,12 @@ main(int argc, char* const* argv)
             break;
         case OPT_TEST:
         {
-            rest.push_back(*argv);
+            /*rest.push_back(*argv);
             rest.insert(++rest.begin(), argv + optind, argv + argc);
             return test(static_cast<int>(rest.size()), &rest[0], logLevel,
-                        metrics);
+                        metrics);*/
+			::testing::InitGoogleTest(&argc, argv);
+			return RUN_ALL_TESTS();
         }
         case OPT_VERSION:
             std::cout << STELLAR_CORE_VERSION << std::endl;
